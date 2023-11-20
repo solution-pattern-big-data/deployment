@@ -4,8 +4,8 @@
   tasks:
   - name: Create Public S3 bucket
     amazon.aws.s3_bucket:
-      #name: "{{ lookup('ansible.builtin.env', 'AWS_BUCKET') }}"
-      name: gmidha-bigdata-nov09
+      name: "{{ lookup('ansible.builtin.env', 'AWS_BUCKET') }}"
+      #name: gmidha-bigdata-nov09
       state: present
       region: us-east-2
       versioning: true 

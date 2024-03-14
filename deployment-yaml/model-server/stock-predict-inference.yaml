@@ -2,21 +2,21 @@ apiVersion: serving.kserve.io/v1beta1
 kind: InferenceService
 metadata:
   annotations:
-    openshift.io/display-name: object-detection-yolov5-model
+    openshift.io/display-name: stock-predict-model
     serving.kserve.io/deploymentMode: ModelMesh
     argocd.argoproj.io/sync-wave: "2"
   labels:
-    name: object-detection-yolov5-model
+    name: stock-predict-model
     opendatahub.io/dashboard: "true"
-  name: object-detection-yolov5-model
-  namespace: object-detection-yolov5
+  name: stock-predict-model
+  namespace: stock-predict
 spec:
   predictor:
     model:
       modelFormat:
         name: onnx
         version: "1"
-      runtime: object-detection-model-server
+      runtime: stock-predict-model-server
       storage:
         key: minio-connection
-        path: yolov5
+        path: stockpredict/future_trend.onnx

@@ -7,13 +7,13 @@ metadata:
     opendatahub.io/disable-gpu: "true"
     opendatahub.io/template-display-name: OpenVINO Model Server
     opendatahub.io/template-name: ovms
-    openshift.io/display-name: object-detection-model-server
+    openshift.io/display-name: stock-predict-model-server
     argocd.argoproj.io/sync-wave: "2"   
   labels:
-    name: object-detection-model-server
+    name: stock-predict-model-server
     opendatahub.io/dashboard: "true"
-  name: object-detection-model-server
-  namespace: object-detection-yolov5
+  name: stock-predict-model-server
+  namespace: stock-predict
 spec:
   builtInAdapter:
     memBufferBytes: 134217728

@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: object-detection-yolov5
+  name: stock-predict
 spec:
   destination:
     name: ''
-    namespace: object-detection-yolov5
+    namespace: stock-predict
     server: 'https://kubernetes.default.svc'
   source:
     path: object-detect-yaml
-    repoURL: 'https://github.com/ritzshah/object-detection-model-serving-yolov5.git'
+    repoURL: 'https://github.com/solution-pattern-big-data/deployment.git'
     targetRevision: HEAD
   sources: []
   project: default

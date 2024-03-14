@@ -2,7 +2,7 @@ apiVersion: datasciencepipelinesapplications.opendatahub.io/v1alpha1
 kind: DataSciencePipelinesApplication
 metadata:
   name: pipelines-definition
-  namespace: object-detection-yolov5
+  namespace: stock-predict
   annotations:
     argocd.argoproj.io/sync-wave: "2"     
 spec:
@@ -30,7 +30,7 @@ spec:
   objectStorage:
     externalStorage:
       bucket: pipeline-artifacts
-      host: http://minio.object-detection-yolov5.svc.cluster.local:9000
+      host: http://minio.stock-predict.svc.cluster.local:9000
       port: ""
       s3CredentialsSecret:
         accessKey: AWS_ACCESS_KEY_ID

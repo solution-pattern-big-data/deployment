@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: minio-buckets
-  namespace: stock-predict-ns
+  namespace: stock-predict
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 ---
@@ -11,7 +11,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: minio-buckets
-  namespace: stock-predict-ns
+  namespace: stock-predict
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 roleRef:
@@ -26,7 +26,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: create-minio-buckets
-  namespace: stock-predict-ns
+  namespace: stock-predict
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
@@ -74,15 +74,16 @@ spec:
               echo $guid
               sandbox_zone=$SANDBOX_ZONE
               #git clone https://gitea.apps.cluster-wwfmc.sandbox1838.opentlc.com/lab-user/big-data-model-deployment.git model-serving
-              git clone https://gitea.apps.cluster-$(GUID).$(SANDBOX_ZONE)/lab-user/big-data-model-deployment.git model-serving
+              #git clone https://gitea.apps.cluster-$(GUID).$(SANDBOX_ZONE)/lab-user/big-data-model-deployment.git model-serving
+              git clone https://gitea.apps.rosa-72m8s.zthc.p1.openshiftapps.com/opentlc-mgr/stockcheck-code.git 
 
               env | grep MINIO
               cat << 'EOF' | python3
               import boto3, os, subprocess
               from git import Repo
-              url = 'https://gitea.apps.cluster-sbc4q.sandbox81.opentlc.com/lab-user/big-data-model-deployment.git'
-              local_dir = 'model-serving'
-              s3_bucket_path = 'models/yolov5'
+              url = 'https://gitea.apps.rosa-72m8s.zthc.p1.openshiftapps.com/opentlc-mgr/stockcheck-code.git'
+              local_dir = 'notebooks/future_trend.onnx'
+              s3_bucket_path = 'models/stockpredict'
 
               s3 = boto3.client("s3",
                                 endpoint_url="http://minio.stock-predict.svc.cluster.local:9000",
@@ -96,13 +97,13 @@ spec:
               print('creating models bucket')
               if bucket not in [bu["Name"] for bu in s3.list_buckets()["Buckets"]]:
                 s3.create_bucket(Bucket=bucket)
-              # Creating folder 'yolov5' within 'models' bucket
-              print('creating models/yolov5')
-              s3.put_object(Bucket=bucket, Key='yolov5/')
+              # Creating folder 'stockpredict' within 'models' bucket
+              print('creating models/stockpredict')
+              s3.put_object(Bucket=bucket, Key='stockpredict/')
 
               # Copy file to S3 bucket
-              print('copy model from local folder to S3 bucket models/yolov5')
-              s3.upload_file('/opt/app-root/src/model-serving/yolov5n.onnx', bucket, 'yolov5/yolov5n.onnx')
+              print('copy model from local folder to S3 bucket models/stockpredict')
+              s3.upload_file('/opt/app-root/src/stockcheck-code/notebooks/future_trend.onnx', bucket, 'stockpredict/future_trend.onnx')
 
               bucket = 'data'
               print('creating data bucket')

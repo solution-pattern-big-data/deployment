@@ -4,10 +4,10 @@ metadata:
   annotations:
     openshift.io/description: "Tekton pipelines for Data Science"
     openshift.io/requester: argocd
-    openshift.io/display-name: stock-predict-ns
+    openshift.io/display-name: stock-predict
     argocd.argoproj.io/sync-wave: "-1"    
   labels:
-    kubernetes.io/metadata.name: stock-predict-ns
+    kubernetes.io/metadata.name: stock-predict
     modelmesh-enabled: "true"
     opendatahub.io/dashboard: "true"
-  name: stock-predict-ns
+  name: stock-predict

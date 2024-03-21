@@ -75,13 +75,13 @@ spec:
               sandbox_zone=$SANDBOX_ZONE
               #git clone https://gitea.apps.cluster-wwfmc.sandbox1838.opentlc.com/lab-user/big-data-model-deployment.git model-serving
               #git clone https://gitea.apps.cluster-$(GUID).$(SANDBOX_ZONE)/lab-user/big-data-model-deployment.git model-serving
-              git clone https://gitea.apps.rosa-72m8s.zthc.p1.openshiftapps.com/opentlc-mgr/stockcheck-code.git 
+              #git clone https://gitea.apps.rosa-9m6tt.m01r.p1.openshiftapps.com/opentlc-mgr/stockcheck-code.git
 
               env | grep MINIO
               cat << 'EOF' | python3
               import boto3, os, subprocess
               from git import Repo
-              url = 'https://gitea.apps.rosa-72m8s.zthc.p1.openshiftapps.com/opentlc-mgr/stockcheck-code.git'
+              #url = 'https://gitea.apps.rosa-9m6tt.m01r.p1.openshiftapps.com/opentlc-mgr/stockcheck-code.git'
               local_dir = 'notebooks/future_trend.onnx'
               s3_bucket_path = 'models/stockpredict'
 
@@ -98,12 +98,12 @@ spec:
               if bucket not in [bu["Name"] for bu in s3.list_buckets()["Buckets"]]:
                 s3.create_bucket(Bucket=bucket)
               # Creating folder 'stockpredict' within 'models' bucket
-              print('creating models/stockpredict')
-              s3.put_object(Bucket=bucket, Key='stockpredict/')
+              #print('creating models/stockpredict')
+              #s3.put_object(Bucket=bucket, Key='stockpredict/')
 
               # Copy file to S3 bucket
-              print('copy model from local folder to S3 bucket models/stockpredict')
-              s3.upload_file('/opt/app-root/src/stockcheck-code/notebooks/future_trend.onnx', bucket, 'stockpredict/future_trend.onnx')
+              #print('copy model from local folder to S3 bucket models/stockpredict')
+              #s3.upload_file('/opt/app-root/src/stockcheck-code/notebooks/future_trend.onnx', bucket, 'stockpredict/future_trend.onnx')
 
               bucket = 'data'
               print('creating data bucket')

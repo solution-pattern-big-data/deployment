@@ -19,4 +19,4 @@ spec:
       runtime: stock-predict-model-server
       storage:
         key: minio-connection
-        path: stockpredict/future_trend.onnx
+        path: forecast.onnx

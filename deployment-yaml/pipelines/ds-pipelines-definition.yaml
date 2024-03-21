@@ -31,7 +31,7 @@ spec:
     externalStorage:
       bucket: pipeline-artifacts
       host: http://minio.stock-predict.svc.cluster.local:9000
-      port: ""
+      port: "80"
       s3CredentialsSecret:
         accessKey: AWS_ACCESS_KEY_ID
         secretKey: AWS_SECRET_ACCESS_KEY

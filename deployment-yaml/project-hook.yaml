@@ -11,5 +11,5 @@ spec:
       containers:
       - name: check-project-container
         image: your_image
-        command: ['sh', '-c', 'while [ -z "$(oc get project object-detection-yolov5 -o name 2>/dev/null)" ]; do echo "Waiting for project to be created"; sleep 5; done;']
+        command: ['sh', '-c', 'while [ -z "$(oc get project stock-predict -o name 2>/dev/null)" ]; do echo "Waiting for project to be created"; sleep 5; done;']
       restartPolicy: Never

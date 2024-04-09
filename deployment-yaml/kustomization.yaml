@@ -22,4 +22,4 @@ patches:
 - path: project-hook.yaml
   target:
     kind: Project
-    name: object-detection-yolov5
+    name: stock-predict

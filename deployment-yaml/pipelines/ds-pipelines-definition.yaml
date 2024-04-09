@@ -2,9 +2,9 @@ apiVersion: datasciencepipelinesapplications.opendatahub.io/v1alpha1
 kind: DataSciencePipelinesApplication
 metadata:
   name: pipelines-definition
-  namespace: object-detection-yolov5
+  namespace: stock-predict
   annotations:
-    argocd.argoproj.io/sync-wave: "2"     
+    argocd.argoproj.io/sync-wave: "3"     
 spec:
   apiServer:
     applyTektonCustomResource: true
@@ -20,6 +20,7 @@ spec:
     terminateStatus: Cancelled
     trackArtifacts: true
   database:
+    disableHealthCheck: false
     mariaDB:
       deploy: true
       pipelineDBName: mlpipeline
@@ -28,16 +29,16 @@ spec:
   mlmd:
     deploy: false
   objectStorage:
+    disableHealthCheck: false
     externalStorage:
       bucket: pipeline-artifacts
-      host: http://minio.object-detection-yolov5.svc.cluster.local:9000
+      host: minio.stock-predict.svc.cluster.local:9000
       port: ""
       s3CredentialsSecret:
         accessKey: AWS_ACCESS_KEY_ID
         secretKey: AWS_SECRET_ACCESS_KEY
-        secretName: minio-connection
+        secretName: aws-connection-pipeline-artifacts
       scheme: http
-      secure: true
   persistenceAgent:
     deploy: true
     numWorkers: 2

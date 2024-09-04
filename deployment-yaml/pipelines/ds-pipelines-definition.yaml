@@ -42,11 +42,11 @@ spec:
         accessKey: AWS_ACCESS_KEY_ID
         secretKey: AWS_SECRET_ACCESS_KEY
         secretName: aws-connection-pipeline-artifacts
-        scheme: http
-        secure: false
+      scheme: http
+      secure: false
   persistenceAgent:
     deploy: true
     numWorkers: 2
-    scheduledWorkflow:
-      cronScheduleTimezone: UTC
-      deploy: true
+  scheduledWorkflow:
+    cronScheduleTimezone: UTC
+    deploy: true

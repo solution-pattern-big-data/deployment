@@ -1,24 +1,26 @@
 apiVersion: datasciencepipelinesapplications.opendatahub.io/v1alpha1
 kind: DataSciencePipelinesApplication
 metadata:
+  finalizers:
+  - datasciencepipelinesapplications.opendatahub.io/finalizer
   name: pipelines-definition
   namespace: stock-predict
-  annotations:
-    argocd.argoproj.io/sync-wave: "3"     
 spec:
   apiServer:
-    applyTektonCustomResource: true
-    archiveLogs: false
-    autoUpdatePipelineDefaultVersion: true
-    collectMetrics: true
-    dbConfigConMaxLifetimeSec: 120
-    deploy: true
-    enableOauth: true
-    enableSamplePipeline: false
-    injectDefaultScript: true
+    caBundleFileMountPath: ''
     stripEOF: true
+    dbConfigConMaxLifetimeSec: 120
+    applyTektonCustomResource: true
+    caBundleFileName: ''
+    deploy: true
+    enableSamplePipeline: false
+    autoUpdatePipelineDefaultVersion: true
+    archiveLogs: false
     terminateStatus: Cancelled
+    enableOauth: true
     trackArtifacts: true
+    collectMetrics: true
+    injectDefaultScript: true
   database:
     disableHealthCheck: false
     mariaDB:
@@ -26,19 +28,22 @@ spec:
       pipelineDBName: mlpipeline
       pvcSize: 10Gi
       username: mlpipeline
-  mlmd:
-    deploy: false
+  dspVersion: v2    
   objectStorage:
     disableHealthCheck: false
+    enableExternalRoute: false
     externalStorage:
+      basePath: ''
       bucket: pipeline-artifacts
       host: minio.stock-predict.svc.cluster.local:9000
-      port: ""
+      port: ''
+      region: us-east-1
       s3CredentialsSecret:
         accessKey: AWS_ACCESS_KEY_ID
         secretKey: AWS_SECRET_ACCESS_KEY
         secretName: aws-connection-pipeline-artifacts
       scheme: http
+      secure: false
   persistenceAgent:
     deploy: true
     numWorkers: 2

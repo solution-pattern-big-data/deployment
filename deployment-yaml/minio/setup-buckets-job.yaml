@@ -55,17 +55,6 @@ spec:
           image: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/s2i-generic-data-science-notebook:1.2
           imagePullPolicy: IfNotPresent
           command: [ "/bin/bash" ]
-          env:
-            - name: GUID
-              valueFrom:
-                configMapKeyRef:
-                  name: setup-bucket-config
-                  key: guid
-            - name: SANDBOX_ZONE
-              valueFrom:
-                configMapKeyRef:
-                  name: setup-bucket-config
-                  key: sandbox_zone
           args:
             - -ec
             - |-
@@ -81,7 +70,6 @@ spec:
               cat << 'EOF' | python3
               import boto3, os, subprocess
               from git import Repo
-              #url = 'https://gitea.apps.rosa-9m6tt.m01r.p1.openshiftapps.com/opentlc-mgr/stockcheck-code.git'
               local_dir = 'notebooks/future_trend.onnx'
               s3_bucket_path = 'models/stockpredict'
 

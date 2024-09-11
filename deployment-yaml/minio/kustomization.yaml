@@ -10,12 +10,6 @@ commonLabels:
   # app.kubernetes.io/part-of: minio
 
 resources:
+- minio.yaml
 - setup-bucket-configmap.yaml
-- deployment.yaml
-# - namespace.yaml
-- pvc.yaml
-- route.yaml
-- secret.yaml
-- service.yaml
-#- setup-job.yaml
 - setup-buckets-job.yaml
